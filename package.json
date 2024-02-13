@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "description": "Simple CRUD API application",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "jest",
     "build": "webpack",
-    "start": "node ./src/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mayerror/CRUD-API.git"
+    "start": "ts-node --esm ./src/index.ts",
+    "start:dev": "nodemon --exec node --loader ts-node/esm ./src/index.ts",
+    "start:prod": "node dist/bundle.js",
+    "watch": "tsc --watch"
   },
   "author": "Sergey Masiuk",
   "license": "ISC",
@@ -19,12 +19,16 @@
   },
   "homepage": "https://github.com/mayerror/CRUD-API#readme",
   "devDependencies": {
+    "@types/node": "^20.11.17",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "dotenv": "^16.4.3",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-webpack-plugin": "^4.0.1",
     "nodemon": "^3.0.3",
     "prettier": "3.2.5",
     "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "webpack": "^5.90.1",
     "webpack-cli": "^5.1.4"
