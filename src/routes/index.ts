@@ -1,6 +1,5 @@
-import {IncomingMessage, ServerResponse} from 'http';
+import { IncomingMessage, ServerResponse } from "http";
 import userController from "../controllers/index.js";
-
 
 const routes = {
   "/": {
@@ -10,9 +9,7 @@ const routes = {
   },
   "/users": {
     GET: userController.getUsers,
-    // POST: (req: IncomingMessage, res: ServerResponse) => {
-    //   validateUserData(req, res, userController.createUser);
-    // },
+    POST: userController.createUser
   },
   // "/users/:id": {
   //   GET: userController.getUserById,
@@ -21,12 +18,12 @@ const routes = {
   //     validateUserData(req, res, userController.updateUser);
   //   },
   // },
-  "notFound": (_req: IncomingMessage, res: ServerResponse) => {
+  notFound: (_req: IncomingMessage, res: ServerResponse) => {
     // response(res, {
     //   status: 404,
     //   data: { message: "requested resource not found!" },
     // });
-  },
+  }
 };
 
 export default routes;

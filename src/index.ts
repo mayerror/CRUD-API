@@ -1,31 +1,24 @@
-import { createServer, IncomingMessage, ServerResponse } from 'node:http';
-import { parse } from 'node:url';
-import loggerMiddleware from './middleware';
-import routes from './routes/index.js';
-import userController from './controllers';
+import { createServer, IncomingMessage, ServerResponse } from "node:http";
+import { parse } from "node:url";
+import loggerMiddleware from "./middleware";
+import routes from "./routes/index.js";
+import Users from "./services/users";
+
+export const users = new Users();
 
 const server = createServer((req: IncomingMessage, res: ServerResponse) => {
   const parsedUrl = parse(req.url!, true);
   const pathname = parsedUrl.pathname;
-  if (pathname === '/api/users') {
-    userController.getUsers(req, res);
-    routes['/users'].GET(req, res);
-  } 
-  // else if (pathname?.startsWith('/api/users/')) {
-  //   const userId = pathname.split('/')[3];
-  //   const user = users.find(u => u.id === userId);
+  const method = req.method ? req.method.toUpperCase() : "GET";
 
-  //   if (user) {
-  //     res.writeHead(200, { 'Content-Type': 'application/json' });
-  //     res.end(JSON.stringify(user));
-  //   } else {
-  //     res.writeHead(404, { 'Content-Type': 'application/json' });
-  //     res.end(JSON.stringify({ message: 'User not found' }));
-  //   }
-  // } else {
-  //   res.writeHead(404, { 'Content-Type': 'application/json' });
-  //   res.end(JSON.stringify({ message: 'Route not found' }));
-  // }
+  console.log(method);
+
+  if (pathname === "/api/users" && method == "GET") {
+    routes["/users"].GET(req, res);
+  }
+  if (pathname === "/api/users" && method == "POST") {
+    routes["/users"].POST(req, res);
+  }
 });
 
 const port = process.env.PORT || 4000;
