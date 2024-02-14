@@ -20,7 +20,7 @@ const server = createServer((req: IncomingMessage, res: ServerResponse) => {
   } else if (pathname?.includes("/api/users")) {
     const uuid = pathname.split("/").slice(-1)[0];
     if (uuid?.length) {
-      if (method === "GET") {
+      if (method === "GET" || method === "DELETE") {
         routes["/users/id"][method](req, res, uuid);
       }
     }

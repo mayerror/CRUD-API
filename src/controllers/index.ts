@@ -45,6 +45,24 @@ class UserController {
       res.end("ERROR: UserId is invalid");
     }
   }
+
+  public deleteUser(req: IncomingMessage, res: ServerResponse, id: string) {
+    if (isUUID(id)) {
+      const userList: User[] = users.getUsers();
+      const user = userList.filter((userItem) => userItem.id === id)[0];
+      if (user?.id) {
+        users.deleteUser(id);
+        res.writeHead(204, { "Content-Type": "application/json" });
+        res.end("User has been deleted");
+      } else {
+        res.writeHead(404, { "Content-Type": "application/json" });
+        res.end("ERROR: User with this ID not found");
+      }
+    } else {
+      res.writeHead(400, { "Content-Type": "application/json" });
+      res.end("ERROR: UserId is invalid");
+    }
+  }
 }
 
 const userController = new UserController();

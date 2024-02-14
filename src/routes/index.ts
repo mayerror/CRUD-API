@@ -7,7 +7,8 @@ const routes = {
     POST: userController.createUser
   },
   "/users/id": {
-    GET: userController.getUser
+    GET: userController.getUser,
+    DELETE: userController.deleteUser
   },
   notFound: (_req: IncomingMessage, res: ServerResponse) => {
     // response(res, {
