@@ -3,6 +3,7 @@ import { parse } from "node:url";
 import loggerMiddleware from "./middleware";
 import routes from "./routes/index.js";
 import Users from "./services/users";
+import "dotenv/config";
 import isUUID from "./utils/isUUID";
 
 export const users = new Users();
