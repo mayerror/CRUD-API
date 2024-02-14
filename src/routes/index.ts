@@ -1,12 +1,7 @@
 import { IncomingMessage, ServerResponse } from "http";
-import userController from "../controllers/index.js";
+import userController from "../controllers";
 
 const routes = {
-  "/": {
-    // GET: (_req: IncomingMessage, res: ServerResponse) => {
-    //   response(res, { data: { message: "running nodejs api" } });
-    // },
-  },
   "/users": {
     GET: userController.getUsers,
     POST: userController.createUser

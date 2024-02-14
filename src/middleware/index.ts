@@ -1,6 +1,6 @@
-import { IncomingMessage, ServerResponse } from 'node:http';
+import { IncomingMessage, ServerResponse } from "node:http";
 
-const loggerMiddleware = (req: IncomingMessage, res?: ServerResponse) => {
+const loggerMiddleware = (req: IncomingMessage, _res?: ServerResponse) => {
   console.log(`${req.method} ${req.url}`);
 };
 

@@ -1,10 +1,9 @@
 import { createServer, IncomingMessage, ServerResponse } from "node:http";
 import { parse } from "node:url";
 import loggerMiddleware from "./middleware";
-import routes from "./routes/index.js";
+import routes from "./routes";
 import Users from "./services/users";
 import "dotenv/config";
-import isUUID from "./utils/isUUID";
 
 export const users = new Users();
 
@@ -25,7 +24,6 @@ const server = createServer((req: IncomingMessage, res: ServerResponse) => {
         routes["/users/id"][method](req, res, uuid);
       }
     }
-  } else {
   }
 });
 
