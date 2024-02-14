@@ -8,7 +8,8 @@
     "test": "jest",
     "build": "webpack",
     "start": "ts-node --esm ./src/index.ts",
-    "start:dev": "nodemon --exec node --loader ts-node/esm ./src/index.ts",
+    "start:dev": "nodemon --exec node --no-warnings=ExperimentalWarning --loader ts-node/esm ./src/index.ts",
+    "start:hit": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./src/index.ts",
     "start:prod": "node dist/bundle.js",
     "watch": "tsc --watch"
   },

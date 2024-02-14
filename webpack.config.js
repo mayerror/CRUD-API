@@ -1,23 +1,29 @@
 import { resolve as _resolve } from "path";
 import ESLintPlugin from "eslint-webpack-plugin";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 
-export const target = "node";
-export const entry = "./src/index.ts";
-export const module = {
-  rules: [
-    {
-      test: /\.ts$/,
-      use: "ts-loader",
-      exclude: /node_modules/
-    }
-  ]
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+export default {
+  target: "node",
+  entry: "./src/index.ts",
+  output: {
+    filename: "bundle.js",
+    path: _resolve(__dirname, "dist"),
+    clean: true
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: "ts-loader",
+        exclude: /node_modules/
+      }
+    ]
+  },
+  resolve: {
+    extensions: [".ts", ".js"]
+  },
+  plugins: [new ESLintPlugin({ extensions: ["ts", "js"] })]
 };
-export const output = {
-  filename: "bundle.js",
-  path: _resolve(__dirname, "dist"),
-  clean: true
-};
-export const resolve = {
-  extensions: [".ts", ".js"]
-};
-export const plugins = [new ESLintPlugin({ extensions: ["ts", "js"] })];
