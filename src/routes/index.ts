@@ -8,7 +8,8 @@ const routes = {
   },
   "/users/id": {
     GET: userController.getUser,
-    DELETE: userController.deleteUser
+    DELETE: userController.deleteUser,
+    PUT: userController.updateUser
   },
   notFound: (_req: IncomingMessage, res: ServerResponse) => {
     // response(res, {

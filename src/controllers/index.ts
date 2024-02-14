@@ -63,6 +63,32 @@ class UserController {
       res.end("ERROR: UserId is invalid");
     }
   }
+
+  public async updateUser(req: IncomingMessage, res: ServerResponse, id: string) {
+    try {
+      if (isUUID(id)) {
+        const user = await getBodyAsync(req);
+        if (user.username && user.age && user.hobbies) {
+          const userList: User[] = users.getUsers();
+          const userToUp = userList.filter((userItem) => userItem.id === id)[0];
+          if (userToUp?.id) {
+            user.id = userToUp?.id;
+            users.updateUser(user);
+            res.writeHead(200, { "Content-Type": "application/json" });
+            res.end(JSON.stringify(user));
+          } else {
+            res.writeHead(404, { "Content-Type": "application/json" });
+            res.end("ERROR: User with this ID not found");
+          }
+        } else {
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end("ERROR: UserId is invalid");
+        }
+      }
+    } catch (error) {
+      console.log("ERROR: Error update user");
+    }
+  }
 }
 
 const userController = new UserController();
