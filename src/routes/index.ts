@@ -11,13 +11,9 @@ const routes = {
     GET: userController.getUsers,
     POST: userController.createUser
   },
-  // "/users/:id": {
-  //   GET: userController.getUserById,
-  //   DELETE: userController.deleteUserById,
-  //   PUT: (req: IncomingMessage, res: ServerResponse) => {
-  //     validateUserData(req, res, userController.updateUser);
-  //   },
-  // },
+  "/users/id": {
+    GET: userController.getUser
+  },
   notFound: (_req: IncomingMessage, res: ServerResponse) => {
     // response(res, {
     //   status: 404,

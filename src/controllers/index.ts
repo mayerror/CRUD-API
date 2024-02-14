@@ -1,6 +1,8 @@
 import { IncomingMessage, ServerResponse } from "http";
+import { v4 as uuidv4 } from "uuid";
 import getBodyAsync from "../utils/getbody";
 import { users } from "../";
+import isUUID from "../utils/isUUID";
 
 class UserController {
   public getUsers(req: IncomingMessage, res: ServerResponse) {
@@ -14,13 +16,33 @@ class UserController {
     try {
       const user = await getBodyAsync(req);
       if (user.username && user.age && user.hobbies) {
+        user.id = uuidv4();
         users.addUser(user);
+        res.writeHead(201, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(user));
+      } else {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end("ERROR: Request body doesn't contain required fields");
       }
-
-      res.writeHead(201, { "Content-Type": "application/json" });
-      res.end(JSON.stringify(user));
     } catch (error) {
-      console.log("Error adding user");
+      console.log("ERROR: Error adding user");
+    }
+  }
+
+  public getUser(req: IncomingMessage, res: ServerResponse, id: string) {
+    if (isUUID(id)) {
+      const userList: User[] = users.getUsers();
+      const user = userList.filter((userItem) => userItem.id === id)[0];
+      if (user?.id) {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(user));
+      } else {
+        res.writeHead(404, { "Content-Type": "application/json" });
+        res.end("ERROR: User with this ID not found");
+      }
+    } else {
+      res.writeHead(400, { "Content-Type": "application/json" });
+      res.end("ERROR: UserId is invalid");
     }
   }
 }
