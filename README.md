@@ -15,6 +15,7 @@ npm i
 - `npm run test` to run tests or `npm run test:verbose` to run verbose tests.
 
 **Implemented endpoints:**
+
 GET
 
 - Get all users
