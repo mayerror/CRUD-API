@@ -17,13 +17,16 @@ const server = createServer((req: IncomingMessage, res: ServerResponse) => {
     if (method === "GET" || method === "POST") {
       routes["/users"][method](req, res);
     }
-  } else if (pathname?.includes("/api/users")) {
+  } else if (pathname?.includes("/api/users/")) {
     const uuid = pathname.split("/").slice(-1)[0];
     if (uuid?.length) {
       if (method === "GET" || method === "DELETE" || method === "PUT") {
         routes["/users/id"][method](req, res, uuid);
       }
     }
+  } else {
+    console.log("not f");
+    routes.notFound(req, res);
   }
 });
 

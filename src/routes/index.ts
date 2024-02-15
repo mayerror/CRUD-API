@@ -11,12 +11,7 @@ const routes = {
     DELETE: userController.deleteUser,
     PUT: userController.updateUser
   },
-  notFound: (_req: IncomingMessage, res: ServerResponse) => {
-    // response(res, {
-    //   status: 404,
-    //   data: { message: "requested resource not found!" },
-    // });
-  }
+  notFound: userController.notFound
 };
 
 export default routes;

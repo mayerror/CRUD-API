@@ -89,6 +89,11 @@ class UserController {
       console.log("ERROR: Error update user");
     }
   }
+
+  public notFound(req: IncomingMessage, res: ServerResponse) {
+    res.writeHead(404, { "Content-Type": "application/json" });
+    res.end("ERROR: Request not recognized.");
+  }
 }
 
 const userController = new UserController();
