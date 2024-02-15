@@ -9,7 +9,7 @@ export default {
   target: "node",
   entry: "./src/index.ts",
   output: {
-    filename: "bundle.js",
+    filename: "bundle.cjs",
     path: _resolve(__dirname, "dist"),
     clean: true
   },
