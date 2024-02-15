@@ -7,7 +7,7 @@ import "dotenv/config";
 
 export const users = new Users();
 
-const server = createServer((req: IncomingMessage, res: ServerResponse) => {
+export const server = createServer((req: IncomingMessage, res: ServerResponse) => {
   try {
     const parsedUrl = parse(req.url!, true);
     const pathname = parsedUrl.pathname;
@@ -37,4 +37,4 @@ const server = createServer((req: IncomingMessage, res: ServerResponse) => {
 
 const port = process.env.PORT || 4000;
 server.on("request", loggerMiddleware);
-server.listen(port, () => console.log(`Server is running on port ${port}`));
+server.listen(port, () => console.log(`Server is running on port: ${port}`));
