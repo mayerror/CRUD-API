@@ -7,7 +7,6 @@ import isUUID from "../utils/isUUID";
 class UserController {
   public getUsers(req: IncomingMessage, res: ServerResponse) {
     const userList: User[] = users.getUsers();
-
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(userList));
   }

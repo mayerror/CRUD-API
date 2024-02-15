@@ -8,25 +8,30 @@ import "dotenv/config";
 export const users = new Users();
 
 const server = createServer((req: IncomingMessage, res: ServerResponse) => {
-  const parsedUrl = parse(req.url!, true);
-  const pathname = parsedUrl.pathname;
-  const method = req.method ? req.method.toUpperCase() : "GET";
+  try {
+    const parsedUrl = parse(req.url!, true);
+    const pathname = parsedUrl.pathname;
+    const method = req.method ? req.method.toUpperCase() : "GET";
 
-  if (pathname === "/api/users") {
-    console.log(`method = ${method}`);
-    if (method === "GET" || method === "POST") {
-      routes["/users"][method](req, res);
-    }
-  } else if (pathname?.includes("/api/users/")) {
-    const uuid = pathname.split("/").slice(-1)[0];
-    if (uuid?.length) {
-      if (method === "GET" || method === "DELETE" || method === "PUT") {
-        routes["/users/id"][method](req, res, uuid);
+    if (pathname === "/api/users") {
+      if (method === "GET" || method === "POST") {
+        routes["/users"][method](req, res);
       }
+    } else if (pathname?.includes("/api/users/")) {
+      const uuid = pathname.split("/").slice(-1)[0];
+      if (uuid?.length) {
+        if (method === "GET" || method === "DELETE" || method === "PUT") {
+          routes["/users/id"][method](req, res, uuid);
+        }
+      }
+    } else {
+      console.log("not f");
+      routes.notFound(req, res);
     }
-  } else {
-    console.log("not f");
-    routes.notFound(req, res);
+  } catch (error) {
+    console.error("SERVER ERROR:", error);
+    res.writeHead(500, { "Content-Type": "text/plain" });
+    res.end("ERROR: Internal Server Error");
   }
 });
 
